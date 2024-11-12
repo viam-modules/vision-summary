@@ -2,12 +2,17 @@ package countclassifier
 
 import (
 	"context"
+	"image"
 
 	"github.com/pkg/errors"
 
 	"go.viam.com/rdk/logging"
 	"go.viam.com/rdk/resource"
 	"go.viam.com/rdk/services/vision"
+	viz "go.viam.com/rdk/vision"
+	"go.viam.com/rdk/vision/classification"
+	objdet "go.viam.com/rdk/vision/objectdetection"
+	"go.viam.com/rdk/vision/viscapture"
 )
 
 const (
@@ -74,11 +79,74 @@ func newCountClassifier(
 }
 
 func (cc *countcls) Reconfigure(ctx context.Context, deps resource.Dependencies, conf resource.Config) error {
-	var err error
-	cc.detName = conf.DetectorName
-	cc.detector, err = vision.FromDependencies(deps, conf.DetectorName)
+	countConf, err := resource.NativeConfig[*Config](conf)
 	if err != nil {
-		return errors.Wrapf(err, "unable to get vision service %v for count classifier", conf.DetectorName)
+		return errors.Errorf("Could not assert proper config for %s", ModelName)
+	}
+	cc.detName = countConf.DetectorName
+	cc.detector, err = vision.FromDependencies(deps, countConf.DetectorName)
+	if err != nil {
+		return errors.Wrapf(err, "unable to get vision service %v for count classifier", countConf.DetectorName)
 	}
 	return nil
+}
+
+func (cc *countcls) count(dets []objdet.Detection) string {
+	return ""
+}
+
+func (cc *countcls) DetectionsFromCamera(
+	ctx context.Context,
+	cameraName string,
+	extra map[string]interface{},
+) ([]objdet.Detection, error) {
+	return nil, errUnimplemented
+}
+
+func (cc *countcls) Detections(ctx context.Context, img image.Image, extra map[string]interface{}) ([]objdet.Detection, error) {
+	return nil, errUnimplemented
+}
+
+func (cc *countcls) ClassificationsFromCamera(
+	ctx context.Context,
+	cameraName string,
+	n int,
+	extra map[string]interface{},
+) (classification.Classifications, error) {
+	return nil, nil
+}
+
+func (cc *countcls) Classifications(ctx context.Context, img image.Image,
+	n int, extra map[string]interface{},
+) (classification.Classifications, error) {
+	return nil, nil
+}
+
+func (cc *countcls) GetObjectPointClouds(
+	ctx context.Context,
+	cameraName string,
+	extra map[string]interface{},
+) ([]*viz.Object, error) {
+	return nil, errUnimplemented
+}
+
+func (cc *countcls) GetProperties(ctx context.Context, extra map[string]interface{}) (*vision.Properties, error) {
+	return &cc.properties, nil
+}
+
+func (cc *countcls) CaptureAllFromCamera(
+	ctx context.Context,
+	cameraName string,
+	opt viscapture.CaptureOptions,
+	extra map[string]interface{},
+) (viscapture.VisCapture, error) {
+	return viscapture.VisCapture{}, nil
+}
+
+func (cc *countcls) Close(ctx context.Context) error {
+	return nil
+}
+
+func (cc *countcls) DoCommand(ctx context.Context, cmd map[string]interface{}) (map[string]interface{}, error) {
+	return nil, nil
 }
