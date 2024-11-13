@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	utils.ContextualMain(mainWithArgs, module.NewLoggerFromArgs("countclassifier"))
+	utils.ContextualMain(mainWithArgs, module.NewLoggerFromArgs("count-classifier"))
 }
 
 func mainWithArgs(ctx context.Context, args []string, logger logging.Logger) (err error) {

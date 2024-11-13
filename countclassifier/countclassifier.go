@@ -19,7 +19,7 @@ import (
 
 const (
 	// ModelName is the name of the model
-	ModelName = "countclassifier"
+	ModelName = "count-classifier"
 	// OverflowLabel is the label if the counts exceed what was specified by the user
 	OverflowLabel = "Overflow"
 )

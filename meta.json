@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dl.viam.dev/module.schema.json",
+  "module_id": "viam:vision-summary",
+  "visibility": "public",
+  "url": "https://github.com/viam-modules/vision-summary",
+  "description": "models that summarize information from underlying vision services",
+  "build": {
+    "build": "make module.tar.gz",
+    "arch" : ["linux/amd64", "linux/arm64", "darwin/arm64"]
+  },
+  "models": [
+    {
+      "api": "rdk:service:vision",
+      "model": "viam:vision-symmary:count-classifier"
+    }
+  ],
+  "entrypoint": "module"
+}
