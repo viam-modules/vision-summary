@@ -11,7 +11,7 @@
   "models": [
     {
       "api": "rdk:service:vision",
-      "model": "viam:vision-symmary:count-classifier"
+      "model": "viam:vision-summary:count-classifier"
     }
   ],
   "entrypoint": "module"
