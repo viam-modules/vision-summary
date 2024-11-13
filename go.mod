@@ -3,6 +3,7 @@ module github.com/viam-modules/vision-summary
 go 1.23.2
 
 require (
+	github.com/pkg/errors v0.9.1
 	go.viam.com/rdk v0.50.0
 	go.viam.com/utils v0.1.113
 )
@@ -103,7 +104,6 @@ require (
 	github.com/pion/transport/v2 v2.2.10 // indirect
 	github.com/pion/turn/v2 v2.1.6 // indirect
 	github.com/pion/webrtc/v3 v3.2.36 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rs/cors v1.11.1 // indirect
