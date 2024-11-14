@@ -4,6 +4,7 @@ package main
 import (
 	"context"
 
+	"go.viam.com/rdk/components/sensor"
 	"go.viam.com/rdk/services/vision"
 
 	"go.viam.com/rdk/logging"
@@ -11,10 +12,11 @@ import (
 	"go.viam.com/utils"
 
 	"github.com/viam-modules/vision-summary/countclassifier"
+	"github.com/viam-modules/vision-summary/countsensor"
 )
 
 func main() {
-	utils.ContextualMain(mainWithArgs, module.NewLoggerFromArgs("count-classifier"))
+	utils.ContextualMain(mainWithArgs, module.NewLoggerFromArgs("vision-summary"))
 }
 
 func mainWithArgs(ctx context.Context, args []string, logger logging.Logger) (err error) {
@@ -24,6 +26,10 @@ func mainWithArgs(ctx context.Context, args []string, logger logging.Logger) (er
 	}
 
 	err = myMod.AddModelFromRegistry(ctx, vision.API, countclassifier.Model)
+	if err != nil {
+		return err
+	}
+	err = myMod.AddModelFromRegistry(ctx, sensor.API, countsensor.Model)
 	if err != nil {
 		return err
 	}

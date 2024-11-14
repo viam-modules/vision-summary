@@ -140,24 +140,26 @@ func (cc *countcls) Reconfigure(ctx context.Context, deps resource.Dependencies,
 	return nil
 }
 
-func (cc *countcls) count(dets []objdet.Detection) string {
+func (cc *countcls) count(dets []objdet.Detection) (string, []objdet.Detection) {
 	// get the number of boxes with the right label and confidences
 	count := 0
+	outDets := []objdet.Detection{}
 	for _, d := range dets {
 		label := strings.ToLower(d.Label())
 		if conf, ok := cc.labels[label]; ok {
 			if d.Score() >= conf {
 				count++
+				outDets = append(outDets, d)
 			}
 		}
 	}
 	// associated the number with the right label
 	for _, thresh := range cc.thresholds {
 		if count <= thresh.UpperBound {
-			return thresh.Label
+			return thresh.Label, outDets
 		}
 	}
-	return OverflowLabel
+	return OverflowLabel, outDets
 }
 
 // Detections just calls the underlying detector
@@ -186,7 +188,7 @@ func (cc *countcls) ClassificationsFromCamera(
 	if err != nil {
 		return nil, errors.Wrapf(err, "error from underlying detector %s", cc.detName)
 	}
-	label := cc.count(dets)
+	label, _ := cc.count(dets)
 	c := classification.NewClassification(1.0, label)
 	cls = append(cls, c)
 	return classification.Classifications(cls), nil
@@ -201,7 +203,7 @@ func (cc *countcls) Classifications(ctx context.Context, img image.Image,
 	if err != nil {
 		return nil, errors.Wrapf(err, "error from underlying vision model %s", cc.detName)
 	}
-	label := cc.count(dets)
+	label, _ := cc.count(dets)
 	c := classification.NewClassification(1.0, label)
 	cls = append(cls, c)
 	return classification.Classifications(cls), nil
@@ -232,11 +234,12 @@ func (cc *countcls) CaptureAllFromCamera(
 	if err != nil {
 		return visCapture, errors.Wrapf(err, "error from underlying detector %s", cc.detName)
 	}
-	label := cc.count(visCapture.Detections)
+	label, dets := cc.count(visCapture.Detections)
 	cls := []classification.Classification{}
 	c := classification.NewClassification(1.0, label)
 	cls = append(cls, c)
 	visCapture.Classifications = classification.Classifications(cls)
+	visCapture.Detections = dets
 	return visCapture, nil
 }
 

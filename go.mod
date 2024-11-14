@@ -5,6 +5,7 @@ go 1.23
 require (
 	github.com/pkg/errors v0.9.1
 	go.viam.com/rdk v0.50.0
+	go.viam.com/test v1.2.3
 	go.viam.com/utils v0.1.113
 )
 
@@ -131,7 +132,6 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	go.viam.com/api v0.1.357 // indirect
-	go.viam.com/test v1.2.3 // indirect
 	golang.org/x/crypto v0.28.0 // indirect
 	golang.org/x/exp v0.0.0-20240904232852-e7e105dedf7e // indirect
 	golang.org/x/image v0.19.0 // indirect

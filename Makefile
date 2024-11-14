@@ -5,7 +5,8 @@ test:
 		go test ./countclassifier/
 
 lint:
-		golangci-lint run ./countclassifier/
+		go mod tidy
+		golangci-lint run
 
 module.tar.gz:
 	go build -a -o module ./cmd/module
