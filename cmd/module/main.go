@@ -13,6 +13,6 @@ import (
 )
 
 func main() {
-	module.ModularMain(resource.APIModel{vision.API, countclassifier.Model},
-	                   resource.APIModel{sensor.API, countsensor.Model})
+	module.ModularMain(resource.APIModel{API: vision.API, Model: countclassifier.Model},
+	                   resource.APIModel{API: sensor.API, Model: countsensor.Model})
 }
