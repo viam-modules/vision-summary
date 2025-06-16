@@ -12,13 +12,13 @@
     {
       "api": "rdk:service:vision",
       "model": "viam:vision-summary:count-classifier",
-      "short_description": "Summarizes .",
+      "short_description": "Summarizes classifications of images.",
       "markdown_link": "README.md#viamvision-summarycount-classifier"
     },
     {
       "api": "rdk:component:sensor",
       "model": "viam:vision-summary:count-sensor",
-      "short_description": ".",
+      "short_description": "Summarizes sensor data.",
       "markdown_link": "README.md#viamvision-summarycount-sensor"
     }
   ],
