@@ -11,11 +11,15 @@
   "models": [
     {
       "api": "rdk:service:vision",
-      "model": "viam:vision-summary:count-classifier"
+      "model": "viam:vision-summary:count-classifier",
+      "short_description": "Summarizes .",
+      "markdown_link": "README.md#viamvision-summarycount-classifier"
     },
     {
       "api": "rdk:component:sensor",
-      "model": "viam:vision-summary:count-sensor"
+      "model": "viam:vision-summary:count-sensor",
+      "short_description": ".",
+      "markdown_link": "README.md#viamvision-summarycount-sensor"
     }
   ],
   "entrypoint": "module"
