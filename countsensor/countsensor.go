@@ -49,27 +49,27 @@ type Config struct {
 
 // Validate validates the config and returns implicit dependencies,
 // this Validate checks if the camera and detector exist for the module's vision model.
-func (cfg *Config) Validate(path string) ([]string, error) {
+func (cfg *Config) Validate(path string) ([]string, []string, error) {
 	if cfg.DetectorName == "" {
-		return nil, errors.New("attribute detector_name cannot be left blank")
+		return nil, nil, errors.New("attribute detector_name cannot be left blank")
 	}
 	if cfg.CameraName == "" {
-		return nil, errors.New("attribute camera_name cannot be left blank")
+		return nil, nil, errors.New("attribute camera_name cannot be left blank")
 	}
 	if len(cfg.CountThresholds) == 0 {
-		return nil, errors.New("attribute count_thresholds is required")
+		return nil, nil, errors.New("attribute count_thresholds is required")
 	}
 	if cfg.PollFrequency < 0 {
-		return nil, errors.New("attribute poll_frequency_hz cannot be negative")
+		return nil, nil, errors.New("attribute poll_frequency_hz cannot be negative")
 	}
 	testMap := map[int]string{}
 	for label, v := range cfg.CountThresholds {
 		if _, ok := testMap[v]; ok {
-			return nil, errors.Errorf("cannot have two labels for the same threshold in count_thresholds. Threshold value %v appears more than once", v)
+			return nil, nil, errors.Errorf("cannot have two labels for the same threshold in count_thresholds. Threshold value %v appears more than once", v)
 		}
 		testMap[v] = label
 	}
-	return []string{cfg.DetectorName, cfg.CameraName}, nil
+	return []string{cfg.DetectorName, cfg.CameraName}, nil, nil
 }
 
 // Bin stores the thresholds that turns counts into labels
