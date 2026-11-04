@@ -20,8 +20,11 @@ jobs:
       run: go mod download
 
     - name: golangci-lint
-      uses: golangci/golangci-lint-action@v6
+      uses: golangci/golangci-lint-action@v9
       with:
+        # v1.64.8 (the v6 action default) is built with Go 1.24 and cannot
+        # analyze this module's go 1.25 directive. v2.4.0+ is required.
+        version: v2.15.0
         args: --timeout 10m
 
     - name: Run unit tests
