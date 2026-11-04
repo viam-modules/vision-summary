@@ -126,7 +126,7 @@ func (cc *countcls) Reconfigure(ctx context.Context, deps resource.Dependencies,
 		return errors.Errorf("Could not assert proper config for %s", ModelName)
 	}
 	cc.detName = countConf.DetectorName
-	cc.detector, err = vision.FromDependencies(deps, countConf.DetectorName)
+	cc.detector, err = vision.FromProvider(deps, countConf.DetectorName)
 	if err != nil {
 		return errors.Wrapf(err, "unable to get vision service %v for count classifier", countConf.DetectorName)
 	}

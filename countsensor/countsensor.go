@@ -150,7 +150,7 @@ func (cs *counter) Reconfigure(ctx context.Context, deps resource.Dependencies, 
 	}
 	cs.camName = countConf.CameraName
 	cs.detName = countConf.DetectorName
-	cs.detector, err = vision.FromDependencies(deps, countConf.DetectorName)
+	cs.detector, err = vision.FromProvider(deps, countConf.DetectorName)
 	if err != nil {
 		return errors.Wrapf(err, "unable to get vision service %v for count classifier", countConf.DetectorName)
 	}
